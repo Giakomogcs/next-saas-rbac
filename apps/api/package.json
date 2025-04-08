@@ -5,7 +5,10 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "@saas/auth": "workspace:*"
+    "@prisma/client": "6.5.0",
+    "@saas/auth": "workspace:*",
+    "init": "^0.1.2",
+    "prisma": "^6.5.0"
   },
   "devDependencies": {
     "@saas/eslint-config": "workspace:*",
