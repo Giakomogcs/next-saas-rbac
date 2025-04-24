@@ -29,7 +29,7 @@ model User {
 }
 
 enum TokenType {
-  PASSWRD_RECOVER
+  PASSWORD_RECOVER
 }
 
 model Token {

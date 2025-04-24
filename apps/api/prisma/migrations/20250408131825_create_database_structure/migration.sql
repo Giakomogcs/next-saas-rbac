@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "TokenType" AS ENUM ('PASSWRD_RECOVER');
+CREATE TYPE "TokenType" AS ENUM ('PASSWORD_RECOVER');
 
 -- CreateEnum
 CREATE TYPE "AccountProvider" AS ENUM ('GITHUB');
