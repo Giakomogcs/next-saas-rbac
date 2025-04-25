@@ -5,6 +5,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { prisma } from '@/lib/prisma'
+import { env } from '@saas/env'
 
 // Importando as tipagens de GitHub
 
@@ -32,14 +33,14 @@ export async function authenticateWithGithub(app: FastifyInstance) {
         'https://github.com/login/oauth/access_token'
       )
 
-      githubOAuthURL.searchParams.set('client_id', 'Ov23lihyCRz8AGmgiRZ4')
+      githubOAuthURL.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID)
       githubOAuthURL.searchParams.set(
         'client_secret',
-        '5b1d496a865ae3e8e0fcd992e1ff6cc4edff8bf0'
+        env.GITHUB_OAUTH_CLIENT_SECRET
       )
       githubOAuthURL.searchParams.set(
         'redirect_uri',
-        'http://localhost:3000/api/auth/callback'
+        env.GITHUB_OAUTH_CLIENT_REDIRECT_URI
       )
       githubOAuthURL.searchParams.set('code', code)
 
