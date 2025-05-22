@@ -5,10 +5,11 @@ import { Label } from '@radix-ui/react-label'
 import Link from 'next/link'
 import githubIcon from '@/assets/github-icon.svg'
 import Image from 'next/image'
+import { signInWithEmailAndPassword } from './actions'
 
 export default function SignInPage() {
   return (
-    <form action="" className="space-y-4">
+    <form action={signInWithEmailAndPassword} className="space-y-4">
       <div className="space-y-1">
         <Label htmlFor="email">Email</Label>
         <Input name="email" type="email" id="email" />
