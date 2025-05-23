@@ -1,11 +1,11 @@
 'use server'
 
-import { signInWithPassword } from '@/http/sign-in-with-password'
+import { signInWithPassord } from '@/http/sign-in-with-password'
 
 export async function signInWithEmailAndPassword(data: FormData) {
   const { email, password } = Object.fromEntries(data)
 
-  const result = await signInWithPassword({
+  const result = await signInWithPassord({
     email: String(email),
     password: String(password),
   })
