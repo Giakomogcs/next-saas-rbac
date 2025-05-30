@@ -1,6 +1,8 @@
-import { signInWithPassword } from '@/http/sign-in-with-password'
 import { HTTPError } from 'ky'
 import { z } from 'zod'
+
+import { signInWithPassword } from '@/http/sign-in-with-password'
+import { setTokenCookie } from '@/http/auth-cookie'
 
 const signInSchema = z.object({
   email: z
@@ -26,14 +28,22 @@ export async function signInWithEmailAndPassword(data: FormData) {
       password,
     })
 
-    console.log(token)
+    await setTokenCookie(token)
   } catch (err) {
+    console.log('Erro capturado:', err)
     if (err instanceof HTTPError) {
       const { message } = await err.response.json()
 
       return { success: false, message, errors: null }
     }
+
     console.error(err)
+
+    return {
+      success: false,
+      message: 'Unexpected error, try again in a few minutes.',
+      errors: null,
+    }
   }
 
   return { success: true, message: null, errors: null }

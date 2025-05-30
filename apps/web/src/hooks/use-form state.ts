@@ -8,16 +8,13 @@ interface FormState {
 
 export function useFormState(
   action: (data: FormData) => Promise<FormState>,
+  onSuccess?: () => Promise<void> | void,
   initialState?: FormState
 ) {
-  const [isPending, startTransiction] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
-  const [FormState, setFormstate] = useState(
-    initialState ?? {
-      success: false,
-      message: null,
-      errors: null,
-    }
+  const [formState, setFormState] = useState(
+    initialState ?? { success: false, message: null, errors: null }
   )
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -26,11 +23,22 @@ export function useFormState(
     const form = event.currentTarget
     const data = new FormData(form)
 
-    startTransiction(async () => {
-      const state = await action(data)
-      setFormstate(state)
+    startTransition(async () => {
+      try {
+        const state = await action(data)
+        if (state.success && onSuccess) {
+          await onSuccess()
+        }
+        setFormState(state)
+      } catch (error) {
+        setFormState({
+          success: false,
+          message: 'Unexpected error, please try again.',
+          errors: null,
+        })
+      }
     })
   }
 
-  return [FormState, handleSubmit, isPending] as const
+  return [formState, handleSubmit, isPending] as const
 }
