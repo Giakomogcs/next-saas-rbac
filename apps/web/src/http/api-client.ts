@@ -1,5 +1,8 @@
 import ky from 'ky'
 
+const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3333'
+
 export const api = ky.create({
-  prefixUrl: 'http://localhost:3333',
+  prefixUrl: BACKEND_URL,
 })

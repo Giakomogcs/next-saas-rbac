@@ -1,4 +1,3 @@
-// auth-cookie.ts (server-only)
 'use server'
 import { cookies } from 'next/headers'
 
